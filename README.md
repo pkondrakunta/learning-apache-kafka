@@ -68,5 +68,32 @@ Here the name of the Kafka topic is kafka.students. Another example:
 ./kafka-topics.sh --bootstrap-server localhost:29092 --delete --topic kafka.grades
 ```
 
-
+# Example: Students
+Creating the kafka.students
+```
+./kafka-topics.sh \
+    --bootstrap-server localhost:29092 \
+    --create \
+    --topic kafka.students \
+    --partitions 2 \
+    --replication-factor 1
+```
+Publish to kafka.students
+```
+./kafka-console-producer.sh \
+    --bootstrap-server localhost:29092 \
+    --property "parse.key=true" \
+    --property "key.separator=:" \
+    --topic kafka.usecase.students
+```
+Consume Message from kafka.students
+```
+./kafka-console-consumer.sh \
+    --bootstrap-server localhost:29092 \
+    --topic kafka.usecase.students \
+    --group usecase-consumer-group \
+    --property print.key=true \
+    --property key.separator=" = " \
+    --from-beginning
+```
 
